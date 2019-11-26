@@ -12,7 +12,7 @@ RUN addgroup -S -g 9898 pypiserver \
     && apk --no-cache add python py3-bcrypt py3-cffi py3-six \
     && find /usr -name "*.py" ! -name "__*" -exec rm {} \; \
     # Ensure pip is available to all further images
-    && apk add --no-cache py2-pip
+    && apk add --no-cache py-pip
 
 FROM base as builder
 
