@@ -9,7 +9,7 @@ RUN addgroup -S -g 9898 pypiserver \
     # Set the setgid bit so anything added here gets associated with the
     # pypiserver group
     && chmod g+s /data/packages \
-    && apk --no-cache add python py3-bcrypt py3-cffi py3-six \
+    && apk --no-cache add python3 py3-bcrypt py3-cffi py3-six \
     && find /usr -name "*.py" ! -name "__*" -exec rm {} \; \
     # Ensure pip is available to all further images
     && apk add --no-cache py-pip
