@@ -1,5 +1,4 @@
 passlib==1.7.1
-scipy
 numpy
 pandas
 matplotlib
