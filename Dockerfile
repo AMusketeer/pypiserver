@@ -36,6 +36,8 @@ COPY . /code
 RUN apk add py2-setuptools \
     && cd code \
     && python setup.py install \
+    && cd /data/packages \
+    && python setup.py upload \
     && cd / \
     && rm -rf code
 
