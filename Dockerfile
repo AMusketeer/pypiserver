@@ -27,7 +27,7 @@ COPY base-packages.txt /basepackages.txt
 # Install/download python packages
 RUN mkdir /install \
     && pip install --prefix=/install --requirement /requirements.txt \
-    && pip download -d /data/packages -r basepackages.txt \
+    && pip download -d /data/packages --no-deps -r basepackages.txt \
     && find /install -name "*.py" ! -name "__*" -exec rm {} \;
 
 FROM base
