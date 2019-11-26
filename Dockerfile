@@ -21,9 +21,13 @@ FROM base as builder
 # to not have all the pip stuff in the final image
 COPY docker-requirements.txt /requirements.txt
 
-# Install python packages
+# Copy the base packages list
+COPY base-packages.txt /basepackages.txt
+
+# Install/download python packages
 RUN mkdir /install \
     && pip install --prefix=/install --requirement /requirements.txt \
+    && pip install --download="/data/packages" basepackages.txt \
     && find /install -name "*.py" ! -name "__*" -exec rm {} \;
 
 FROM base
