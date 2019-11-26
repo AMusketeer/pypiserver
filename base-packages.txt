@@ -1,6 +1,6 @@
+pandas
 scipy
 numpy
-pandas
 matplotlib
 seaborn
 scrapy
