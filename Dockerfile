@@ -9,10 +9,10 @@ RUN addgroup -S -g 9898 pypiserver \
     # Set the setgid bit so anything added here gets associated with the
     # pypiserver group
     && chmod g+s /data/packages \
-    && apk --no-cache add python3 py3-bcrypt py3-cffi py3-six \
+    && apk --no-cache add python py2-bcrypt py2-cffi py2-six \
     && find /usr -name "*.py" ! -name "__*" -exec rm {} \; \
     # Ensure pip is available to all further images
-    && apk add --no-cache py-pip
+    && apk add --no-cache py2-pip
 
 FROM base as builder
 
@@ -21,13 +21,9 @@ FROM base as builder
 # to not have all the pip stuff in the final image
 COPY docker-requirements.txt /requirements.txt
 
-# Copy the base packages list
-COPY base-packages.txt /basepackages.txt
-
-# Install/download python packages
+# Install python packages
 RUN mkdir /install \
     && pip install --prefix=/install --requirement /requirements.txt \
-    && pip download -d /data/packages -r basepackages.txt \
     && find /install -name "*.py" ! -name "__*" -exec rm {} \;
 
 FROM base
@@ -37,7 +33,7 @@ COPY --from=builder /install /usr
 
 COPY . /code
 
-RUN apk add py3-setuptools \
+RUN apk add py2-setuptools \
     && cd code \
     && python setup.py install \
     && cd / \
